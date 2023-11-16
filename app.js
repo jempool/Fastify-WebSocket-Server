@@ -3,6 +3,7 @@
 const path = require('node:path')
 const AutoLoad = require('@fastify/autoload')
 const fastifySocketIo = require('fastify-socket.io')
+const cors = require('@fastify/cors');
 
 const socketIO = require('./src/webSockets/webSockets.js');
 
@@ -12,8 +13,18 @@ const options = {}
 module.exports = async function (fastify, opts) {
   // Place here your custom code!
 
+  // === CORS ===
+  await fastify.register(cors, {
+    origin: '*'
+  })
+
   // === WebSockets ===
-  await fastify.register(fastifySocketIo);
+  await fastify.register(fastifySocketIo, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
   socketIO(fastify);
 
   // Do not touch the following lines
