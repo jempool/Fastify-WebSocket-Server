@@ -3,7 +3,7 @@ const { Message } = require('../models/message');
 
 module.exports = {
 
-  // === Users ====
+  // === Chat ===
 
   getAllHistory: async function () {
     return await Message.find();
@@ -14,7 +14,7 @@ module.exports = {
     return await newMessage.save();
   },
 
-  // === Chat ===
+  // === Users ====
 
   getUserByEmail: async function (email) {
     return await User.findOne({ email });

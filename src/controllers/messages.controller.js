@@ -9,7 +9,7 @@ module.exports = {
       reply.code(200).send(messages);
     }
     catch (e) {
-      reply.code(401).send(e);
+      reply.code(500).send(e);
     }
   }
 };
