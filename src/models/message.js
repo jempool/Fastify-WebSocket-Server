@@ -11,13 +11,13 @@ const MessageSchema = new mongoose.Schema({
   }
 });
 
-MessageSchema.method("toResponseObject", function () {
+MessageSchema.method('toResponseObject', function () {
   return {
     name: this.message,
     email: this.handle
   };
 });
 
-const Message = mongoose.model("Message", MessageSchema);
+const Message = mongoose.model('Message', MessageSchema);
 
 module.exports = { Message };

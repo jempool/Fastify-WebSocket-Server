@@ -1,5 +1,5 @@
 
-const dbService = require("./db.service.js");
+const dbService = require('./db.service.js');
 
 module.exports = {
   getAllHistory: async function () {
