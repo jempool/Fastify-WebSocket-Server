@@ -1,12 +1,14 @@
 'use strict'
 
+const dbService = require("./../services/db.service.js");
+
 module.exports = function (server) {
   server.io.on('connection', (socket) => {
     console.log(`${new Date()} - New connection ${socket.id}`);
 
     // Listening for chat event
     socket.on("chat", function (data) {
-      // dbService.addMessage(data);
+      dbService.addMessage(data);
       server.io.sockets.emit("chat", data);
     });
 

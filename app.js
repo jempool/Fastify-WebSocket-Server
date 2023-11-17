@@ -4,6 +4,7 @@ const path = require('node:path')
 const AutoLoad = require('@fastify/autoload')
 const fastifySocketIo = require('fastify-socket.io')
 const cors = require('@fastify/cors');
+const mongoose = require('mongoose');
 
 const socketIO = require('./src/webSockets/webSockets.js');
 
@@ -11,7 +12,13 @@ const socketIO = require('./src/webSockets/webSockets.js');
 const options = {}
 
 module.exports = async function (fastify, opts) {
-  // Place here your custom code!
+
+  //connected fastify to mongoose
+  try {
+    mongoose.connect('mongodb://localhost:27017/real-time_chat');
+  } catch (e) {
+    console.error(e);
+  }
 
   // === CORS ===
   await fastify.register(cors, {
@@ -25,6 +32,7 @@ module.exports = async function (fastify, opts) {
       methods: ["GET", "POST"]
     }
   });
+
   socketIO(fastify);
 
   // Do not touch the following lines
