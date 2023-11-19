@@ -7,25 +7,26 @@ const saltRounds = 10;
 
 module.exports = {
   login: function (request, reply, done) {
-    const email = request.body.email;
-    const password = request.body.password;
+    const { email, password } = request.body;
     dbService.getUserByEmail(email)
       .then((user) => {
         if (!user || !bcrypt.compareSync(password, user.password)) {
-          return done(new Error('Incorrect email or password.'));
+          const err = new Error('Incorrect email or password.');
+          err.statusCode = 400;
+          return done(err);
         }
         reply.locals.user = user.toResponseObject();
         return done();
       })
-      .catch((err) => {
-        console.error(err);
-        done(new Error('failure to communicate with the database.'));
+      .catch((error) => {
+        console.log(error);
+        const err = new Error('failure to communicate with the database.');
+        err.statusCode = 500;
+        return done(err);
       });
   },
   signup: function (request, reply, done) {
-    const email = request.body.email;
-    const name = request.body.name;
-    const password = request.body.password;
+    const { email, name, password } = request.body;
     dbService.getUserByEmail(email)
       .then((user) => {
         if (user) {
@@ -47,6 +48,19 @@ module.exports = {
         err.statusCode = 500;
         return done(err);
       });
+  },
+  refreshToken: function (request, reply, done) {
+    const jwt = require('jsonwebtoken');
+    const { email, refreshToken } = request.body;
+    const token = jwt.verify(refreshToken, process.env.JWT_SECRET);
+    const isValid = token.user.email === email;
+    if (!isValid) {
+      const err = new Error('Invalid token, try login again.');
+      err.statusCode = 401;
+      return done(err);
+    }
+    reply.locals.user = { name: token.user.name, email: token.user.email };
+    return done();
   }
 };
 

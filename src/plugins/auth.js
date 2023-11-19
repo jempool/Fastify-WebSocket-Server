@@ -35,4 +35,17 @@ module.exports = fp(async function (fastify, opts) {
         handler: authController.login
       });
     });
+
+  fastify
+    .decorate('refresh', authService.refreshToken)
+    .after(() => {
+      fastify.route({
+        method: 'POST',
+        url: '/auth/refresh',
+        preHandler: fastify.auth([
+          fastify.refresh
+        ]),
+        handler: authController.refreshToken
+      });
+    });
 });
