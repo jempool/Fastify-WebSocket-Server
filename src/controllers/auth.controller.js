@@ -1,6 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+
 const { ACCESS_TOKEN_EXPIRES_IN, REFRESH_TOKEN_EXPIRES_IN } = require('../utils/constants.js');
 
 

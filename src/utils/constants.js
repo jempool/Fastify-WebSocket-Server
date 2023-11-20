@@ -1,10 +1,13 @@
 const DATABASE_URL = 'mongodb://localhost:27017';
 const DATABASE_NAME = 'real-time_chat';
 
-const ACCESS_TOKEN_EXPIRES_IN = '1h';
+const ACCESS_TOKEN_EXPIRES_IN = '5000';
 const REFRESH_TOKEN_EXPIRES_IN = '1d';
 
 const PORT = 3000;
+
+const WEBSOCKETS_CHAT_EVENT = 'chat';
+const WEBSOCKETS_TYPING_EVENT = 'typing';
 
 
 module.exports = {
@@ -12,5 +15,7 @@ module.exports = {
   DATABASE_NAME,
   ACCESS_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_EXPIRES_IN,
-  PORT
+  PORT,
+  WEBSOCKETS_CHAT_EVENT,
+  WEBSOCKETS_TYPING_EVENT
 };

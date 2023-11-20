@@ -1,9 +1,11 @@
 'use strict';
 
-const dbService = require('../services/db.service.js');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
 const saltRounds = 10;
+
+const dbService = require('../services/db.service.js');
+
 
 module.exports = {
   login: function (request, reply, done) {
@@ -20,11 +22,12 @@ module.exports = {
       })
       .catch((error) => {
         console.log(error);
-        const err = new Error('failure to communicate with the database.');
+        const err = new Error('failure trying to fetch the user.');
         err.statusCode = 500;
         return done(err);
       });
   },
+
   signup: function (request, reply, done) {
     const { email, name, password } = request.body;
     dbService.getUserByEmail(email)
@@ -44,13 +47,13 @@ module.exports = {
       })
       .catch((error) => {
         console.log(error);
-        const err = new Error('failure to communicate with the database.');
+        const err = new Error('failure trying to fetch the user.');
         err.statusCode = 500;
         return done(err);
       });
   },
+
   refreshToken: function (request, reply, done) {
-    const jwt = require('jsonwebtoken');
     const { email, refreshToken } = request.body;
     const token = jwt.verify(refreshToken, process.env.JWT_SECRET);
     const isValid = token.user.email === email;
