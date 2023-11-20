@@ -6,9 +6,6 @@ module.exports = {
     return dbService.getAllHistory()
       .then((message) => {
         return message;
-      })
-      .catch((err) => {
-        console.error(err);
       });
   }
 };
