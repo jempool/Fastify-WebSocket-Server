@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const authController = require('../controllers/auth.controller.js');
 const authService = require('../services/auth.service.js');
+const authSchemas = require('../schemas/auth.schema.js');
 
 
 module.exports = fp(async function (fastify, opts) {
@@ -20,6 +21,7 @@ module.exports = fp(async function (fastify, opts) {
       fastify.route({
         method: 'POST',
         url: '/auth/login',
+        schema: authSchemas.loginSchema,
         preHandler: fastify.auth([
           fastify.login
         ]),
@@ -33,6 +35,7 @@ module.exports = fp(async function (fastify, opts) {
       fastify.route({
         method: 'POST',
         url: '/auth/signup',
+        schema: authSchemas.signupSchema,
         preHandler: fastify.auth([
           fastify.signup
         ]),
@@ -49,6 +52,7 @@ module.exports = fp(async function (fastify, opts) {
         preHandler: fastify.auth([
           fastify.refresh
         ]),
+        schema: authSchemas.refreshTokenSchema,
         handler: authController.refreshToken
       });
     });
