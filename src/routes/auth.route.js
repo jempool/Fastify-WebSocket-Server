@@ -1,13 +1,11 @@
 'use strict';
 
-const fp = require('fastify-plugin');
-
-const authController = require('../../controllers/auth.controller.js');
-const authService = require('../../services/auth.service.js');
-const authSchemas = require('../../schemas/auth.schema.js');
+const authController = require('../controllers/auth.controller.js');
+const authService = require('../services/auth.service.js');
+const authSchemas = require('../schemas/auth.schema.js');
 
 
-module.exports = fp(async function (fastify, opts) {
+module.exports = async function (fastify, opts) {
 
   /* POST Login. */
   fastify.route({
@@ -35,5 +33,5 @@ module.exports = fp(async function (fastify, opts) {
     preHandler: authService.refreshToken,
     handler: authController.refreshToken
   });
-});
+};
 
