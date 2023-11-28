@@ -1,8 +1,8 @@
 'use strict';
 
-const authController = require('../controllers/auth.controller.js');
-const authService = require('../services/auth.service.js');
-const authSchemas = require('../schemas/auth.schema.js');
+const authController = require('../../controllers/auth.controller.js');
+const authService = require('../../services/auth.service.js');
+const authSchemas = require('../../schemas/auth.schema.js');
 
 
 module.exports = async function (fastify, opts) {
@@ -10,7 +10,7 @@ module.exports = async function (fastify, opts) {
   /* POST Login. */
   fastify.route({
     method: 'POST',
-    url: '/auth/login',
+    url: '/login',
     schema: authSchemas.loginSchema,
     preHandler: authService.login,
     handler: authController.login
@@ -19,7 +19,7 @@ module.exports = async function (fastify, opts) {
   /* POST Signup. */
   fastify.route({
     method: 'POST',
-    url: '/auth/signup',
+    url: '/signup',
     schema: authSchemas.signupSchema,
     preHandler: authService.signup,
     handler: authController.login
@@ -28,7 +28,7 @@ module.exports = async function (fastify, opts) {
   /* POST Refresh token. */
   fastify.route({
     method: 'POST',
-    url: '/auth/refresh',
+    url: '/refresh',
     schema: authSchemas.refreshTokenSchema,
     preHandler: authService.refreshToken,
     handler: authController.refreshToken
