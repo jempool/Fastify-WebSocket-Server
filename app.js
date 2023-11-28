@@ -6,6 +6,7 @@ const fastifySocketIo = require('fastify-socket.io');
 const cors = require('@fastify/cors');
 const mongoose = require('mongoose');
 
+const { DATABASE_URL, DATABASE_NAME } = require('./src/utils/constants.js');
 const socketIO = require('./src/webSockets/webSockets.js');
 
 // Pass --options via CLI arguments in command to enable these options.
@@ -15,7 +16,7 @@ module.exports = async function (fastify, opts) {
 
   //connected fastify to mongoose
   try {
-    await mongoose.connect('mongodb://0.0.0.0:27017/real-time_chat');
+    await mongoose.connect(`${DATABASE_URL}/${DATABASE_NAME}`);
   }
   catch (e) {
     console.error(e);
