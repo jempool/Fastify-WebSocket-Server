@@ -3,7 +3,7 @@
 const dbService = require('./../services/db.service.js');
 const { WEBSOCKETS_CHAT_EVENT, WEBSOCKETS_TYPING_EVENT } = require('./../utils/constants.js');
 
-module.exports = function (server) {
+module.exports = async function (server) {
   server.io.on('connection', (socket) => {
     console.log(`${new Date()} - New connection ${socket.id}`);
 

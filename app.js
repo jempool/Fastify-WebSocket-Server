@@ -6,6 +6,7 @@ const fastifySocketIo = require('fastify-socket.io');
 const cors = require('@fastify/cors');
 const mongoose = require('mongoose');
 
+const { DATABASE_URL, DATABASE_NAME } = require('./src/utils/constants.js');
 const socketIO = require('./src/webSockets/webSockets.js');
 
 // Pass --options via CLI arguments in command to enable these options.
@@ -15,7 +16,7 @@ module.exports = async function (fastify, opts) {
 
   //connected fastify to mongoose
   try {
-    mongoose.connect('mongodb://localhost:27017/real-time_chat');
+    await mongoose.connect(`${DATABASE_URL}/${DATABASE_NAME}`);
   }
   catch (e) {
     console.error(e);
@@ -34,21 +35,21 @@ module.exports = async function (fastify, opts) {
     }
   });
 
-  socketIO(fastify);
+  await socketIO(fastify);
 
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
-  fastify.register(AutoLoad, {
+  await fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'src/plugins'),
     options: Object.assign({}, opts)
   });
 
   // This loads all plugins defined in routes
   // define your routes in one of these
-  fastify.register(AutoLoad, {
+  await fastify.register(AutoLoad, {
     dir: path.join(__dirname, 'src/routes'),
     options: Object.assign({}, opts)
   });
