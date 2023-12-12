@@ -1,7 +1,7 @@
 "use strict";
 
-import messagesController from "../../controllers/messages.controller";
-import messagesSchemas from "../../schemas/messages.schema";
+import messagesController from "../controllers/messages.controller";
+import messagesSchemas from "../schemas/messages.schema";
 
 export default async function (fastify, opts) {
   /* GET History. */

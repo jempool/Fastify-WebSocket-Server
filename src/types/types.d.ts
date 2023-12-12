@@ -1,9 +1,9 @@
-import type { User } from "../models/user.model";
+import { IUser } from "interfaces/user.interface";
 
 declare module "fastify" {
   interface FastifyReply {
     locals: {
-      user: typeof User | null;
+      user: IUser | null;
     };
   }
 }

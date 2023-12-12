@@ -1,8 +1,8 @@
 "use strict";
 
-import authController from "../../controllers/auth.controller";
-import authService from "../../services/auth.service";
-import authSchemas from "../../schemas/auth.schema";
+import authController from "../controllers/auth.controller";
+import authService from "../services/auth.service";
+import authSchemas from "../schemas/auth.schema";
 
 export default async function (fastify, opts) {
   /* POST Login. */
