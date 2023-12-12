@@ -1,38 +1,36 @@
-'use strict';
+"use strict";
 
-const path = require('node:path');
-const AutoLoad = require('@fastify/autoload');
-const fastifySocketIo = require('fastify-socket.io');
-const cors = require('@fastify/cors');
-const mongoose = require('mongoose');
+import path from "node:path";
+import AutoLoad from "@fastify/autoload";
+import fastifySocketIo from "fastify-socket.io";
+import cors from "@fastify/cors";
+import mongoose from "mongoose";
 
-const { DATABASE_URL, DATABASE_NAME } = require('./utils/constants.js');
-const socketIO = require('./webSockets/webSockets.js');
+import { DATABASE_URL, DATABASE_NAME } from "./utils/constants";
+import socketIO from "./webSockets/webSockets";
 
 // Pass --options via CLI arguments in command to enable these options.
-const options = {};
+// const options = {};
 
-module.exports = async function (fastify, opts) {
-
+export default async function (fastify, opts) {
   //connected fastify to mongoose
   try {
     await mongoose.connect(`${DATABASE_URL}/${DATABASE_NAME}`);
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
 
   // === CORS ===
   await fastify.register(cors, {
-    origin: '*'
+    origin: "*",
   });
 
   // === WebSockets ===
   await fastify.register(fastifySocketIo, {
     cors: {
-      origin: '*',
-      methods: ['GET', 'POST']
-    }
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
   });
 
   await socketIO(fastify);
@@ -43,16 +41,16 @@ module.exports = async function (fastify, opts) {
   // those should be support plugins that are reused
   // through your application
   await fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'plugins'),
-    options: Object.assign({}, opts)
+    dir: path.join(__dirname, "plugins"),
+    options: Object.assign({}, opts),
   });
 
   // This loads all plugins defined in routes
   // define your routes in one of these
   await fastify.register(AutoLoad, {
-    dir: path.join(__dirname, 'routes'),
-    options: Object.assign({}, opts)
+    dir: path.join(__dirname, "routes"),
+    options: Object.assign({}, opts),
   });
-};
+}
 
-module.exports.options = options;
+// module.exports.options = options;

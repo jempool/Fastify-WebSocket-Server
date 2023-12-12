@@ -1,17 +1,15 @@
-'use strict';
+"use strict";
 
-const messagesService = require('../services/mesagges.service.js');
+import messagesService from "../services/mesagges.service";
 
-module.exports = {
+export default {
   history: async function (request, reply) {
     try {
       await this.authorize(request, reply);
       const messages = await messagesService.getAllHistory();
       reply.code(200).send(messages);
-    }
-    catch (e) {
+    } catch (e) {
       reply.send(e);
     }
-  }
+  },
 };
-

@@ -1,8 +1,7 @@
-const { User } = require('../models/user.js');
-const { Message } = require('../models/message');
+import { User } from "../models/user.model";
+import { Message } from "../models/message.model";
 
-module.exports = {
-
+export default {
   // === Chat ===
 
   getAllHistory: async function () {
@@ -23,5 +22,5 @@ module.exports = {
   createUser: async function (user) {
     const newUser = new User({ ...user });
     return await newUser.save();
-  }
+  },
 };

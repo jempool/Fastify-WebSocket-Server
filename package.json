@@ -8,8 +8,9 @@
   },
   "scripts": {
     "test": "tap \"test/**/*.test.js\"",
-    "start": "fastify start -l info src/app.js",
-    "dev": "fastify start -w -l info -P src/app.js"
+    "dev": "fastify start -w -l info -P build/app.js",
+    "build": "tsc -p tsconfig.json",
+    "start": "node build/app.js"
   },
   "repository": {
     "type": "git",
@@ -35,12 +36,18 @@
     "fastify-socket.io": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.1",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "web-streams-polyfill": "^3.2.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.10.4",
     "eslint": "^8.53.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.0",
-    "tap": "^16.1.0"
+    "tap": "^16.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }
