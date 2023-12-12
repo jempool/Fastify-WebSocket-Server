@@ -13,11 +13,8 @@ module.exports = fp(async function (fastify, opts) {
 });
 
 async function authorize(request, reply) {
-  const accessToken = request.headers.authorization.split(' ')[1];
-  if (!accessToken) {
-    throw new Error('unauthorized: missing access token');
-  }
   try {
+    const accessToken = request.headers.authorization.split(' ')[1];
     const token = jwt.verify(accessToken, process.env.JWT_SECRET);
     return token;
   }
