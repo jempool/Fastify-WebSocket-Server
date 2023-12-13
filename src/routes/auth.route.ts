@@ -6,7 +6,7 @@ export default async function (fastify, opts) {
   /* POST Login. */
   fastify.route({
     method: "POST",
-    url: "/login",
+    url: "/auth/login",
     schema: authSchemas.loginSchema,
     preHandler: authService.login,
     handler: authController.login,
@@ -15,7 +15,7 @@ export default async function (fastify, opts) {
   /* POST Signup. */
   fastify.route({
     method: "POST",
-    url: "/signup",
+    url: "/auth/signup",
     schema: authSchemas.signupSchema,
     preHandler: authService.signup,
     handler: authController.login,
@@ -24,7 +24,7 @@ export default async function (fastify, opts) {
   /* POST Refresh token. */
   fastify.route({
     method: "POST",
-    url: "/refresh",
+    url: "/auth/refresh",
     schema: authSchemas.refreshTokenSchema,
     preHandler: authService.refreshToken,
     handler: authController.refreshToken,
