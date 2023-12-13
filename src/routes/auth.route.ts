@@ -1,5 +1,3 @@
-"use strict";
-
 import authController from "../controllers/auth.controller";
 import authService from "../services/auth.service";
 import authSchemas from "../schemas/auth.schema";

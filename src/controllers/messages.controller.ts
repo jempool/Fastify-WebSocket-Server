@@ -1,5 +1,3 @@
-"use strict";
-
 import messagesService from "../services/mesagges.service";
 
 export default {
