@@ -1,5 +1,3 @@
-"use strict";
-
 import dbService from "./../services/db.service";
 import {
   WEBSOCKETS_CHAT_EVENT,

@@ -1,5 +1,3 @@
-"use strict";
-
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const saltRounds = 10;

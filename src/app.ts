@@ -1,5 +1,3 @@
-"use strict";
-
 import path from "node:path";
 import AutoLoad from "@fastify/autoload";
 import fastifySocketIo from "fastify-socket.io";
@@ -8,9 +6,6 @@ import mongoose from "mongoose";
 
 import { DATABASE_URL, DATABASE_NAME } from "./utils/constants";
 import socketIO from "./webSockets/webSockets";
-
-// Pass --options via CLI arguments in command to enable these options.
-// const options = {};
 
 export default async function (fastify, opts) {
   //connected fastify to mongoose
@@ -52,5 +47,3 @@ export default async function (fastify, opts) {
     options: Object.assign({}, opts),
   });
 }
-
-// module.exports.options = options;
