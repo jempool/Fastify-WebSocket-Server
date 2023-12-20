@@ -1,4 +1,4 @@
-import messagesService from "../services/mesagges.service";
+import messagesService from "../services/messages.service";
 
 export default {
   history: async function (request, reply) {
