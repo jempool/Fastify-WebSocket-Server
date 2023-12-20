@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-const saltRounds = 10;
 
-import dbService from "../services/db.service.js";
-import { BadRequestError, UnauthorizedError } from "../utils/errors.js";
+import dbService from "../services/db.service";
+import { BadRequestError, UnauthorizedError } from "../utils/errors";
+import { BCRYPT_SALT_ROUNDS } from "../utils/constants";
 
-export default {
+// Define the service object
+const authService = {
   login: async function (request, reply) {
     const { email, password } = request.body;
     const user = await dbService.getUserByEmail(email);
@@ -23,8 +24,7 @@ export default {
         `The email ${email} is already associated with an account`
       );
     }
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hash = bcrypt.hashSync(password, salt);
+    const hash = hashPassword(password);
     const createdUser = await dbService.createUser({
       name,
       email,
@@ -45,6 +45,12 @@ export default {
     if (!isValid) {
       throw new UnauthorizedError("Invalid token, try login again.");
     }
-    reply.locals.user = { name: token.user.name, email: token.user.email };
   },
 };
+
+function hashPassword(password) {
+  const salt = bcrypt.genSaltSync(BCRYPT_SALT_ROUNDS);
+  return bcrypt.hashSync(password, salt);
+}
+
+export default authService;

@@ -1,10 +1,10 @@
-import { IMessage } from "interfaces/message.interface.js";
-import dbService from "./db.service.js";
+import { IMessage } from "interfaces/message.interface";
+import dbService from "./db.service";
 
-export default {
-  getAllHistory: async function (): Promise<IMessage[]> {
-    return dbService.getAllHistory().then((message) => {
-      return message;
-    });
+const messagesService = {
+  getAllHistory: async (): Promise<IMessage[]> => {
+    return dbService.getAllHistory();
   },
 };
+
+export default messagesService;
