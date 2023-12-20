@@ -2,7 +2,7 @@ import dbService from "./../services/db.service";
 import {
   WEBSOCKETS_CHAT_EVENT,
   WEBSOCKETS_TYPING_EVENT,
-} from "./../utils/constants.js";
+} from "./../utils/constants";
 
 export default async function (server) {
   server.io.on("connection", (socket) => {
