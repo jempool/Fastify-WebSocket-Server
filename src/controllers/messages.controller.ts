@@ -1,13 +1,16 @@
-import messagesService from "../services/mesagges.service";
+import messagesService from "../services/messages.service";
 
-export default {
+// Define the controller object
+const messagesController = {
   history: async function (request, reply) {
     try {
       await this.authorize(request, reply);
       const messages = await messagesService.getAllHistory();
       reply.code(200).send(messages);
     } catch (e) {
-      reply.send(e);
+      reply.code(500).send({ error: e.message });
     }
   },
 };
+
+export default messagesController;

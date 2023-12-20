@@ -1,5 +1,6 @@
 import { User } from "../models/user.model";
 import { Message } from "../models/message.model";
+import { Topic } from "../models/topic.model";
 import { IMessage } from "../interfaces/message.interface";
 import { IUser } from "../interfaces/user.interface";
 
@@ -24,5 +25,12 @@ export default {
   createUser: async function (user: IUser) {
     const newUser = new User({ ...user });
     return await newUser.save();
+  },
+
+  // === Topics ===
+  getTopicByDate: async function (date: Date) {
+    return await Topic.findOne({ forDate: { $gte: date } }).select(
+      "-_id -__v -forDate"
+    );
   },
 };
