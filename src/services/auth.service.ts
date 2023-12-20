@@ -45,6 +45,7 @@ const authService = {
     if (!isValid) {
       throw new UnauthorizedError("Invalid token, try login again.");
     }
+    reply.locals.user = token.user;
   },
 };
 
